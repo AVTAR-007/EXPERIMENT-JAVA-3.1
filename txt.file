@@ -1,0 +1,137 @@
+# EXPERIMENT-JAVA-3.1
+import java.util.*;
+
+public class WebAppSimulation {
+
+    static Scanner sc = new Scanner(System.in);
+
+    // Employee data simulation
+    static class Employee {
+        int id;
+        String name;
+        double salary;
+
+        Employee(int id, String name, double salary) {
+            this.id = id;
+            this.name = name;
+            this.salary = salary;
+        }
+    }
+
+    static List<Employee> employees = new ArrayList<>();
+
+    // Attendance simulation
+    static class Attendance {
+        int studentId;
+        String date;
+        String status;
+
+        Attendance(int studentId, String date, String status) {
+            this.studentId = studentId;
+            this.date = date;
+            this.status = status;
+        }
+    }
+
+    static List<Attendance> attendanceList = new ArrayList<>();
+
+    public static void main(String[] args) {
+        // Preload employees
+        employees.add(new Employee(101, "John", 50000));
+        employees.add(new Employee(102, "Emma", 60000));
+        employees.add(new Employee(103, "Raj", 55000));
+
+        while (true) {
+            System.out.println("\n========= MENU =========");
+            System.out.println("1. User Login (Servlet Simulation)");
+            System.out.println("2. Display Employees (JDBC Simulation)");
+            System.out.println("3. Student Attendance Portal (JSP Simulation)");
+            System.out.println("4. Exit");
+            System.out.print("Enter your choice: ");
+            int ch = sc.nextInt();
+            sc.nextLine();
+
+            switch (ch) {
+                case 1:
+                    loginSimulation();
+                    break;
+                case 2:
+                    employeeSimulation();
+                    break;
+                case 3:
+                    attendanceSimulation();
+                    break;
+                case 4:
+                    System.out.println("Exiting... Goodbye!");
+                    return;
+                default:
+                    System.out.println("Invalid choice, try again!");
+            }
+        }
+    }
+
+    // --- PART (a): LOGIN ---
+    static void loginSimulation() {
+        System.out.println("\n--- User Login Simulation ---");
+        System.out.print("Enter username: ");
+        String user = sc.nextLine();
+        System.out.print("Enter password: ");
+        String pass = sc.nextLine();
+
+        // Hardcoded credentials
+        if (user.equals("admin") && pass.equals("12345")) {
+            System.out.println("✅ Login Successful! Welcome, " + user + "!");
+        } else {
+            System.out.println("❌ Invalid username or password.");
+        }
+    }
+
+    // --- PART (b): EMPLOYEE DISPLAY ---
+    static void employeeSimulation() {
+        System.out.println("\n--- Employee Records Simulation ---");
+        System.out.print("Enter Employee ID to search (or press 0 to view all): ");
+        int id = sc.nextInt();
+        sc.nextLine();
+
+        if (id == 0) {
+            System.out.println("\nAll Employees:");
+            for (Employee e : employees) {
+                System.out.println("ID: " + e.id + ", Name: " + e.name + ", Salary: " + e.salary);
+            }
+        } else {
+            boolean found = false;
+            for (Employee e : employees) {
+                if (e.id == id) {
+                    System.out.println("✅ Found: ID=" + e.id + ", Name=" + e.name + ", Salary=" + e.salary);
+                    found = true;
+                    break;
+                }
+            }
+            if (!found)
+                System.out.println("❌ No employee found with ID " + id);
+        }
+    }
+
+    // --- PART (c): ATTENDANCE ---
+    static void attendanceSimulation() {
+        System.out.println("\n--- Student Attendance Portal Simulation ---");
+        System.out.print("Enter Student ID: ");
+        int sid = sc.nextInt();
+        sc.nextLine();
+        System.out.print("Enter Date (YYYY-MM-DD): ");
+        String date = sc.nextLine();
+        System.out.print("Enter Status (Present/Absent): ");
+        String status = sc.nextLine();
+
+        attendanceList.add(new Attendance(sid, date, status));
+        System.out.println("✅ Attendance recorded successfully!");
+
+        System.out.println("\nAll Attendance Records:");
+        for (Attendance a : attendanceList) {
+            System.out.println("Student ID: " + a.studentId + ", Date: " + a.date + ", Status: " + a.status);
+        }
+    }
+}
+
+
+
